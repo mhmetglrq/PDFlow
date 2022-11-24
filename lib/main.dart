@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/features/home_page/home_page.dart';
+import 'package:flutter_img_to_pdf/features/splash_page/splash_page.dart';
 import 'package:flutter_img_to_pdf/router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -18,9 +23,48 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => genarateRoute(settings),
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFCFD0CE),
+        appBarTheme: AppBarTheme(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(8),
+            ),
+          ),
+          backgroundColor: const Color(0xFFFFFFFF),
+          centerTitle: true,
+          titleTextStyle: GoogleFonts.quicksand(
+            textStyle: const TextStyle(
+              color: Color(0xFF373A42),
+              fontWeight: FontWeight.bold,
+              fontSize: 22,
+            ),
+          ),
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF2F2F2),
+        textTheme: Theme.of(context).textTheme.copyWith(
+              titleMedium: GoogleFonts.quicksand(
+                textStyle: const TextStyle(
+                  color: Color(0xFF373A42),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              bodyMedium: GoogleFonts.quicksand(
+                textStyle: const TextStyle(
+                  color: Color(0xFF373A42),
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                ),
+              ),
+              headlineMedium: GoogleFonts.quicksand(
+                textStyle: const TextStyle(
+                  color: Color(0xFF373A42),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ),
       ),
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }
