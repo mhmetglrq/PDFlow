@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 Future<File?> pickImage(BuildContext context, ImageSource source) async {
   File? image;
@@ -36,13 +36,18 @@ Future<List<FileSystemEntity>> getFiles() async {
   return entities;
 }
 
-Future<void> launchInBrowser(Uri url) async {
-  if (!await launchUrl(
-    url,
-    mode: LaunchMode.externalApplication,
-  )) {
-    throw 'Could not launch $url';
-  }
+String getRandomString(int length) {
+  const chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random rnd = Random();
+  return String.fromCharCodes(
+    Iterable.generate(
+      length,
+      (_) => chars.codeUnitAt(
+        rnd.nextInt(chars.length),
+      ),
+    ),
+  );
 }
 
 Future<List<XFile?>?> pickImageFromCamera(BuildContext context) async {
@@ -69,4 +74,22 @@ void showSnackBar({required BuildContext context, required String content}) {
       content: Text(content),
     ),
   );
+}
+
+void showDoneDialog({required context}) {
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          elevation: 2,
+          content: AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+          ),
+        );
+      });
 }

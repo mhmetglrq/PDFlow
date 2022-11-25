@@ -1,17 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_img_to_pdf/common/utils/colors.dart';
+import 'package:flutter_img_to_pdf/common/utils/icons.dart';
+import 'package:flutter_img_to_pdf/common/utils/images.dart';
 import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
-import 'package:flutter_img_to_pdf/common/widgets/custom_button.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../common/utils/utils.dart';
+import '../../../common/widgets/custom_button.dart';
 import '../controller/convert_controller.dart';
 
 class SelectImageScreen extends ConsumerStatefulWidget {
-  static const String routeName = '/select-image-page';
+  static const String routeName = '/select-images-page';
   const SelectImageScreen({super.key});
 
   @override
@@ -51,6 +54,12 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
     setState(() {});
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   void convertToPDF(List<XFile?>? images, String fileName) {
     ref
         .read(convertControllerProvider)
@@ -62,15 +71,6 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        elevation: 0,
-        // leading: IconButton(
-        //   onPressed: () => Navigator.pushNamedAndRemoveUntil(
-        //       context, HomePage.routeName, (route) => false),
-        //   icon: const Icon(
-        //     Icons.arrow_back_ios_new_rounded,
-        //     color: Color(0xFF8E9AAF),
-        //   ),
-        // ),
         title: const Text("PDFLOW"),
         centerTitle: true,
       ),
@@ -79,22 +79,22 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
         children: [
           images != null
               ? Expanded(
+                  flex: 50,
                   child: ListView.builder(
-                    physics: const ClampingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: images!.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
                           Expanded(
-                            flex: 97,
                             child: AspectRatio(
                               aspectRatio: 210 / 297,
                               child: Container(
                                 margin: const EdgeInsets.all(12),
                                 color: Colors.white,
                                 child: Container(
-                                  margin: const EdgeInsets.all(12),
+                                  margin: const EdgeInsets.all(20),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(5),
                                     image: DecorationImage(
@@ -104,17 +104,19 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: FittedBox(
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  (index + 1).toString(),
+                                  child: Container(
+                                    margin: const EdgeInsets.all(4),
+                                    alignment: Alignment.bottomRight,
+                                    child: CircleAvatar(
+                                        backgroundColor:
+                                            pdfConvertBackgroundColor,
+                                        child: Text(
+                                          (index + 1).toString(),
+                                          style: const TextStyle(
+                                            color: pdfConvertIconColor,
+                                          ),
+                                        )),
+                                  ),
                                 ),
                               ),
                             ),
@@ -125,88 +127,61 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                   ),
                 )
               : Expanded(
+                  flex: 50,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: GestureDetector(
-                            onTap: () async {
-                              if (await requestStoragePermission()) {
-                                selectImages();
-                              }
-                            },
-                            child: Container()
-
-                            // const PickImageCard(
-                            //   iconData: Icons.photo_rounded,
-                            //   title:
-                            //       "Lütfen resmi veya resimleri seçmek için dokunun",
-                            // ),
+                        child: Container(
+                          margin: const EdgeInsets.all(12),
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(emptyImage),
+                              fit: BoxFit.scaleDown,
                             ),
-                      ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () async {
-                            if (await requestCameraAndStoragePermission()) {
-                              selectImageFromCamera();
-                            }
-                          },
-                          child: Container(),
-
-                          // const PickImageCard(
-                          //   iconData: Icons.photo_camera_rounded,
-                          //   title: "Lütfen fotoğraf çekmek için dokunun",
-                          // ),
+                          ),
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: const Text(
+                              'Henüz bir resim seçmemişsin. Resimleri seç başlayalım!',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-          images != null
-              ? Container(
-                  margin: const EdgeInsets.all(20),
-                  child: TextField(
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                          color: Colors.blueAccent,
-                        ),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      hintText: "Lütfen dosya adını giriniz..",
-                    ),
+          Expanded(
+            flex: 7,
+            child: Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onTap: () => selectImages(),
+                    backgroundColor: addImageBackgroundColor,
+                    icon: addIcon,
+                    iconColor: addImageIconColor,
+                    title: 'Resim/Resimleri Seç',
                   ),
-                )
-              : const SizedBox(),
-          images != null
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CustomButton(
-                      text: "PDF'e Çevir",
-                      onPressed: () async {
-                        if (await requestManageExternalStoragePermission()) {
-                          convertToPDF(images, _nameController.text);
-                          setState(() {
-                            images = null;
-                            _nameController.clear();
-                          });
-                        }
-                      },
-                    ),
-                    CustomButton(
-                      text: "Başka Resim Çek veya Seç",
-                      onPressed: () {
-                        setState(() {
-                          images = null;
-                          _nameController.clear();
-                        });
-                      },
-                    )
-                  ],
-                )
-              : const SizedBox(),
+                ),
+                images != null
+                    ? Expanded(
+                        child: CustomButton(
+                          onTap: () => convertToPDF(images, 'random'),
+                          backgroundColor: pdfConvertBackgroundColor,
+                          icon: doneIcon,
+                          iconColor: pdfConvertIconColor,
+                          title: "PDF'e Çevir",
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
+            ),
+          ),
+          const Spacer(
+            flex: 1,
+          )
         ],
       ),
     );

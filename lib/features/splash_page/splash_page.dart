@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_img_to_pdf/common/utils/colors.dart';
+import 'package:flutter_img_to_pdf/common/utils/icons.dart';
+import 'package:flutter_img_to_pdf/common/utils/utils.dart';
 import 'package:flutter_img_to_pdf/common/widgets/custom_button.dart';
-import 'package:flutter_img_to_pdf/features/home_page/home_page.dart';
 import 'package:video_player/video_player.dart';
 
 class SplashPage extends StatefulWidget {
@@ -14,6 +16,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   late VideoPlayerController _controller;
+  late VideoPlayerController _doneController;
   @override
   void initState() {
     // TODO: implement initState
@@ -42,13 +45,33 @@ class _SplashPageState extends State<SplashPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          AspectRatio(
-            aspectRatio: 1,
-            child: VideoPlayer(_controller),
+          const Spacer(
+            flex: 20,
           ),
-          CustomButton(
-            text: 'Başlayalım!',
-            onPressed: () => Navigator.pushNamed(context, HomePage.routeName),
+          Expanded(
+            flex: 50,
+            child: Container(
+              alignment: Alignment.center,
+              child: VideoPlayer(_controller),
+            ),
+          ),
+          const Spacer(
+            flex: 10,
+          ),
+          Expanded(
+            flex: 10,
+            child: Center(
+              child: CustomButton(
+                  // onTap: () => Navigator.pushNamed(context, HomePage.routeName),
+                  onTap: () => showDoneDialog(context: context),
+                  backgroundColor: homeBackgroundColor,
+                  iconColor: homeIconColor,
+                  title: 'Başlayalım!',
+                  icon: homeIcon),
+            ),
+          ),
+          const Spacer(
+            flex: 5,
           ),
         ],
       ),

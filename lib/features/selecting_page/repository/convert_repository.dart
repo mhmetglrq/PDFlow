@@ -36,11 +36,12 @@ class ConvertRepository {
         ),
       );
     }
-    savePDF(context, fileName, pdf);
+    savePDF(context, pdf);
   }
 
-  savePDF(context, String fileName, pdf) async {
+  savePDF(context, pdf) async {
     Directory? directory;
+    String fileName = getRandomString(5);
     try {
       if (Platform.isAndroid) {
         if (await requestPermission(Permission.storage)) {
@@ -58,7 +59,8 @@ class ConvertRepository {
           newPath = "$newPath/PDFlow";
           directory = Directory(newPath);
           await directory.create();
-          File file = File("${Directory(newPath).path}/files/$fileName.pdf");
+          File file =
+              File("${Directory(newPath).path}/files/PDFlow_$fileName.pdf");
 
           if (file.existsSync()) {
             file = await file.create(recursive: true);
@@ -71,7 +73,7 @@ class ConvertRepository {
           return false;
         }
       }
-      showSnackBar(context: context, content: 'Başarıyla Kaydedildi!');
+      
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }

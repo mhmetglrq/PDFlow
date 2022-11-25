@@ -2,27 +2,27 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_img_to_pdf/common/lists/card_list.dart';
+import 'package:flutter_img_to_pdf/common/utils/images.dart';
+import 'package:flutter_img_to_pdf/features/home_page/controller/home_controller.dart';
+import 'package:flutter_img_to_pdf/features/selecting_page/screens/select_image_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../common/utils/utils.dart';
+import '../../common/widgets/error.dart';
+import '../../common/widgets/loader.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   static const String routeName = '/home-page';
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   List<FileSystemEntity> files = [];
-
-  void launchUrl(Uri url) async {
-    launchInBrowser(url);
-  }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -65,52 +65,55 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Expanded(
                     flex: 85,
-                    child: FutureBuilder<List<FileSystemEntity>>(
-                        future: getFiles(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            files = snapshot.data!.toList();
-                          }
-                          if (files.isEmpty) {
-                            return Container(
-                              margin: const EdgeInsets.all(20),
-                              decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/empty.png'),
-                                      fit: BoxFit.cover)),
-                              child: Container(
-                                alignment: Alignment.bottomCenter,
-                                child: Text(
-                                  "Şu anlık boş gözüküyor. Hemen PDF'leri oluşturalım!",
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context).textTheme.bodyMedium,
-                                ),
-                              ),
-                            );
-                          } else if (files.isNotEmpty) {
-                            return ListView.builder(
-                              itemCount: files.length,
-                              itemBuilder: ((context, index) {
-                                return InkWell(
-                                  onTap: () => launchUrl(files[index].uri),
-                                  child: Card(
-                                    child: ListTile(
-                                      title: Text(
-                                        files[index].path.split('/').last,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium,
+                    child: ref.watch(getFileListProvider).when(
+                          data: (fileList) => fileList.isNotEmpty
+                              ? ListView.builder(
+                                  reverse: true,
+                                  itemCount: fileList.length,
+                                  itemBuilder: ((context, index) {
+                                    return InkWell(
+                                      onTap: () {},
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        child: ListTile(
+                                          title: Text(
+                                            fileList[index]
+                                                .path
+                                                .split('/')
+                                                .last,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium,
+                                          ),
+                                        ),
                                       ),
+                                    );
+                                  }),
+                                )
+                              : Container(
+                                  margin: const EdgeInsets.all(20),
+                                  decoration: const BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(emptyImage),
+                                          fit: BoxFit.cover)),
+                                  child: Container(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Text(
+                                      "Şu anlık boş gözüküyor. Hemen PDF'leri oluşturalım!",
+                                      textAlign: TextAlign.center,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
                                   ),
-                                );
-                              }),
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        }),
+                                ),
+                          error: (error, stackTrace) =>
+                              ErrorScreen(error: error.toString()),
+                          loading: () => const Loader(),
+                        ),
                   ),
                 ],
               ),
@@ -139,7 +142,13 @@ class _HomePageState extends State<HomePage> {
                       scrollDirection: Axis.horizontal,
                       itemCount: pickImageCards.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return pickImageCards[index];
+                        return InkWell(
+                            onTap: index == 0
+                                ? () => Navigator.pushNamed(
+                                    context, SelectImageScreen.routeName)
+                                : () => Navigator.pushNamed(
+                                    context, SelectImageScreen.routeName),
+                            child: pickImageCards[index]);
                       },
                     ),
                   )
