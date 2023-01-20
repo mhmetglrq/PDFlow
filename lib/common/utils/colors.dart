@@ -6,3 +6,4 @@ const pdfConvertIconColor = Color(0xff5798FF);
 const pdfConvertBackgroundColor = Color(0xffACCCFF);
 const homeIconColor = Color(0xFFE69960);
 const homeBackgroundColor = Color(0xFFFFC8AC);
+const scaffoldColor = Color(0xFFF2F2F2);

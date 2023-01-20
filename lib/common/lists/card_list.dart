@@ -1,6 +1,6 @@
 import 'package:flutter_img_to_pdf/common/utils/images.dart';
 
-import '../../features/selecting_page/widgets/pick_image_card.dart';
+import '../../features/pdf_converting_page/widgets/pick_image_card.dart';
 
 List<PickImageCard> pickImageCards = [
   const PickImageCard(

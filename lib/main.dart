@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_img_to_pdf/common/utils/colors.dart';
 import 'package:flutter_img_to_pdf/features/splash_page/splash_page.dart';
 import 'package:flutter_img_to_pdf/router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(8),
+              bottom: Radius.circular(16),
             ),
           ),
           backgroundColor: const Color(0xFFFFFFFF),
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        scaffoldBackgroundColor: const Color(0xFFF2F2F2),
+        scaffoldBackgroundColor: scaffoldColor,
         textTheme: Theme.of(context).textTheme.copyWith(
               titleMedium: GoogleFonts.quicksand(
                 textStyle: const TextStyle(

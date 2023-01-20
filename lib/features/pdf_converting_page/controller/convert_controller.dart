@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod/riverpod.dart';
 
-import 'package:flutter_img_to_pdf/features/selecting_page/repository/convert_repository.dart';
+import 'package:flutter_img_to_pdf/features/pdf_converting_page/repository/convert_repository.dart';
 
 final convertControllerProvider = Provider(((ref) {
   final convertRepository = ref.watch(convertRepositoryProvider);
@@ -20,8 +20,8 @@ class ConvertController {
     required this.ref,
   });
 
-  void createPDFFromImage(
-      List<XFile?>? files, BuildContext context, String fileName) {
-    convertRepository.createPdfFromImage(files, context, fileName);
+  Future<String?> createPDFFromImage(
+      List<XFile?>? files, BuildContext context) async {
+    return await convertRepository.createPdfFromImage(files, context);
   }
 }

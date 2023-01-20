@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_img_to_pdf/common/utils/colors.dart';
 import 'package:flutter_img_to_pdf/common/utils/icons.dart';
-import 'package:flutter_img_to_pdf/common/utils/utils.dart';
+import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
 import 'package:flutter_img_to_pdf/common/widgets/custom_button.dart';
-import 'package:video_player/video_player.dart';
+import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../common/utils/permissions.dart';
+import '../home_page/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   static const String routeName = '/select-splash-page';
@@ -15,65 +19,66 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  late VideoPlayerController _controller;
-  late VideoPlayerController _doneController;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _controller = VideoPlayerController.asset('assets/videos/landing_new.mp4')
-      ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-        setState(() {});
-      });
-    play();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  void play() {
-    _controller.play();
+  Future<bool> requestManageExternalStoragePermission() async {
+    return await requestPermission(Permission.manageExternalStorage);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const Spacer(
-            flex: 20,
-          ),
-          Expanded(
-            flex: 50,
-            child: Container(
-              alignment: Alignment.center,
-              child: VideoPlayer(_controller),
-            ),
-          ),
-          const Spacer(
-            flex: 10,
-          ),
-          Expanded(
-            flex: 10,
-            child: Center(
-              child: CustomButton(
-                  // onTap: () => Navigator.pushNamed(context, HomePage.routeName),
-                  onTap: () => showDoneDialog(context: context),
+      body: SafeArea(
+        child: Padding(
+          padding: paddingAll,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: paddingVertical10,
+                          child: Text(
+                            'PDFLOW',
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                  fontSize: 24,
+                                ),
+                          ),
+                        ),
+                        const Text(
+                            'Fotoğraflarınızı PDF dosyasına rahatça çevirin'),
+                      ],
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Lottie.asset('assets/json/splash.json'),
+                    ),
+                  ],
+                ),
+              ),
+              CustomButton(
+                  onTap: () async {
+                    await requestManageExternalStoragePermission().then(
+                        (value) =>
+                            Navigator.pushNamed(context, HomePage.routeName));
+                  },
                   backgroundColor: homeBackgroundColor,
                   iconColor: homeIconColor,
                   title: 'Başlayalım!',
                   icon: homeIcon),
-            ),
+            ],
           ),
-          const Spacer(
-            flex: 5,
-          ),
-        ],
+        ),
       ),
     );
   }

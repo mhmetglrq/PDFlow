@@ -13,20 +13,22 @@ import '../../../common/utils/permissions.dart';
 final convertRepositoryProvider = Provider((ref) => ConvertRepository());
 
 class ConvertRepository {
-  void createPdfFromImage(List<XFile?>? files, context, String fileName) async {
-    final pdf = pw.Document();
+  Future<String?> createPdfFromImage(List<XFile?>? files, context) async {
+    final pdf = pw.Document(
+      pageMode: PdfPageMode.fullscreen,
+    );
     for (var i = 0; i < files!.length; i++) {
       final image = pw.MemoryImage(File(files[i]!.path).readAsBytesSync());
       pdf.addPage(
         pw.Page(
+          margin: const pw.EdgeInsets.all(20),
           pageFormat: PdfPageFormat.a4,
           build: (pw.Context context) {
             return pw.AspectRatio(
               aspectRatio: 210 / 297,
               child: pw.Container(
-                margin: const pw.EdgeInsets.all(8),
                 decoration: pw.BoxDecoration(
-                  borderRadius: pw.BorderRadius.circular(12),
+                  borderRadius: pw.BorderRadius.circular(5),
                   image: pw.DecorationImage(
                       fit: pw.BoxFit.cover, image: pw.Image(image).image),
                 ),
@@ -36,31 +38,18 @@ class ConvertRepository {
         ),
       );
     }
-    savePDF(context, pdf);
+    return savePDF(context, pdf);
   }
 
-  savePDF(context, pdf) async {
+  Future<String?> savePDF(context, pdf) async {
     Directory? directory;
     String fileName = getRandomString(5);
     try {
       if (Platform.isAndroid) {
         if (await requestPermission(Permission.storage)) {
           directory = await getExternalStorageDirectory();
-          String newPath = "";
-          List<String> folders = directory!.path.split("/");
-          for (var i = 1; i < folders.length; i++) {
-            String folder = folders[i];
-            if (folder != "Android") {
-              newPath += "/$folder";
-            } else {
-              break;
-            }
-          }
-          newPath = "$newPath/PDFlow";
-          directory = Directory(newPath);
-          await directory.create();
-          File file =
-              File("${Directory(newPath).path}/files/PDFlow_$fileName.pdf");
+
+          File file = File("${directory!.path}/PDFlow_$fileName.pdf");
 
           if (file.existsSync()) {
             file = await file.create(recursive: true);
@@ -69,13 +58,14 @@ class ConvertRepository {
             file = await file.create(recursive: true);
             await file.writeAsBytes(await pdf.save());
           }
+          return file.path;
         } else {
-          return false;
+          return '';
         }
       }
-      
     } catch (e) {
       showSnackBar(context: context, content: e.toString());
     }
+    return null;
   }
 }

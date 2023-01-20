@@ -6,15 +6,11 @@
 <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION"/>
 <uses-permission android:name="android.permission.CAMERA"/>
+ 
    <application
-        
-
         android:label="flutter_img_to_pdf"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-
-        
-       
         <activity
             android:requestLegacyExternalStorage="true"
             android:name=".MainActivity"

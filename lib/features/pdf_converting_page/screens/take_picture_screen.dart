@@ -5,26 +5,30 @@ import 'package:flutter_img_to_pdf/common/utils/colors.dart';
 import 'package:flutter_img_to_pdf/common/utils/icons.dart';
 import 'package:flutter_img_to_pdf/common/utils/images.dart';
 import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
+import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../common/utils/utils.dart';
 import '../../../common/widgets/custom_button.dart';
+import '../../home_page/controller/home_controller.dart';
 import '../controller/convert_controller.dart';
+import '../../../common/widgets/custom_appbar.dart';
 
-class SelectImageScreen extends ConsumerStatefulWidget {
-  static const String routeName = '/select-images-page';
-  const SelectImageScreen({super.key});
+class TakePictureScreen extends ConsumerStatefulWidget {
+  static const String routeName = '/select-take-picture-page';
+  const TakePictureScreen({super.key});
 
   @override
-  ConsumerState<SelectImageScreen> createState() => _SelectImageScreenState();
+  ConsumerState<TakePictureScreen> createState() => _TakePictureScreenState();
 }
 
-class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
-  XFile? image;
+class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
   List<XFile?>? images;
+  List<XFile?>? cameraImages;
   final TextEditingController _nameController = TextEditingController();
+  String? filePath;
 
   @override
   void dispose() {
@@ -32,48 +36,35 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
     _nameController.dispose();
   }
 
+  void addImageFromCamera() async {
+    var image = await addImagesFromCamera(context);
+    if (image != null) {
+      setState(() {
+        images!.add(XFile(image.path));
+      });
+    }
+  }
+
   void selectImageFromCamera() async {
     images = await pickImageFromCamera(context);
     setState(() {});
   }
 
-  Future<bool> requestStoragePermission() async {
-    return await requestPermission(Permission.storage);
-  }
-
-  Future<bool> requestCameraAndStoragePermission() async {
+  Future<bool> requestCameraPermission() async {
     return await requestPermission(Permission.camera);
   }
 
-  Future<bool> requestManageExternalStoragePermission() async {
-    return await requestPermission(Permission.manageExternalStorage);
-  }
-
-  void selectImages() async {
-    images = await pickImagesFromGallery(context);
-    setState(() {});
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  void convertToPDF(List<XFile?>? images, String fileName) {
-    ref
+  Future<String?> convertToPDF(List<XFile?>? images) async {
+    return await ref
         .read(convertControllerProvider)
-        .createPDFFromImage(images, context, fileName);
+        .createPDFFromImage(images, context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text("PDFLOW"),
-        centerTitle: true,
-      ),
+      appBar: const PreferredSize(
+          preferredSize: preferredSize, child: CustomAppBar()),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -108,14 +99,15 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                                     margin: const EdgeInsets.all(4),
                                     alignment: Alignment.bottomRight,
                                     child: CircleAvatar(
-                                        backgroundColor:
-                                            pdfConvertBackgroundColor,
-                                        child: Text(
-                                          (index + 1).toString(),
-                                          style: const TextStyle(
-                                            color: pdfConvertIconColor,
-                                          ),
-                                        )),
+                                      backgroundColor:
+                                          pdfConvertBackgroundColor,
+                                      child: Text(
+                                        (index + 1).toString(),
+                                        style: const TextStyle(
+                                          color: pdfConvertIconColor,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -143,7 +135,7 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                           child: Container(
                             alignment: Alignment.center,
                             child: const Text(
-                              'Henüz bir resim seçmemişsin. Resimleri seç başlayalım!',
+                              'Henüz bir resim çekmemişsin. Resim çek ve başlayalım!',
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -157,18 +149,39 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
             child: Row(
               children: [
                 Expanded(
-                  child: CustomButton(
-                    onTap: () => selectImages(),
-                    backgroundColor: addImageBackgroundColor,
-                    icon: addIcon,
-                    iconColor: addImageIconColor,
-                    title: 'Resim/Resimleri Seç',
-                  ),
+                  child: images != null
+                      ? CustomButton(
+                          onTap: () => addImageFromCamera(),
+                          backgroundColor: addImageBackgroundColor,
+                          icon: addIcon,
+                          iconColor: addImageIconColor,
+                          title: 'Resim Çek/Ekle',
+                        )
+                      : CustomButton(
+                          onTap: () async {
+                            await requestCameraPermission();
+                            setState(() {
+                              selectImageFromCamera();
+                            });
+                          },
+                          backgroundColor: addImageBackgroundColor,
+                          icon: addIcon,
+                          iconColor: addImageIconColor,
+                          title: 'Resim Çek',
+                        ),
                 ),
                 images != null
                     ? Expanded(
                         child: CustomButton(
-                          onTap: () => convertToPDF(images, 'random'),
+                          onTap: () async {
+                            filePath = await convertToPDF(
+                              images,
+                            ).then((value) => value);
+                            showDoneDialog(
+                                context: context, filePath: filePath!);
+
+                            ref.refresh(fileProvider).whenData((value) => null);
+                          },
                           backgroundColor: pdfConvertBackgroundColor,
                           icon: doneIcon,
                           iconColor: pdfConvertIconColor,
