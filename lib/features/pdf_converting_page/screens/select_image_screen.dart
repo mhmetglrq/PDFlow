@@ -3,14 +3,16 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_img_to_pdf/common/utils/colors.dart';
 import 'package:flutter_img_to_pdf/common/utils/icons.dart';
-import 'package:flutter_img_to_pdf/common/utils/images.dart';
 import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
 import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
 import 'package:flutter_img_to_pdf/common/widgets/custom_appbar.dart';
 import 'package:flutter_img_to_pdf/features/home_page/controller/home_controller.dart';
+import 'package:flutter_img_to_pdf/features/pdf_converting_page/widgets/selecting_empty_widget.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../common/utils/utils.dart';
 import '../../../common/widgets/custom_button.dart';
@@ -44,11 +46,6 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
     setState(() {});
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   Future<String?> convertToPDF(List<XFile?>? images) async {
     return await ref
         .read(convertControllerProvider)
@@ -57,9 +54,15 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: preferredSize, child: CustomAppBar()),
+        preferredSize: preferredSize,
+        child: CustomAppBar(
+          home: false,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -91,18 +94,44 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                                         ),
                                       ),
                                     ),
-                                    child: Container(
-                                      margin: const EdgeInsets.all(4),
-                                      alignment: Alignment.bottomRight,
-                                      child: CircleAvatar(
-                                          backgroundColor:
-                                              pdfConvertBackgroundColor,
-                                          child: Text(
-                                            (index + 1).toString(),
-                                            style: const TextStyle(
-                                              color: pdfConvertIconColor,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.all(4),
+                                          alignment: Alignment.topRight,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                images!.removeAt(index);
+                                              });
+                                            },
+                                            child: const CircleAvatar(
+                                              backgroundColor:
+                                                  addImageIconColor,
+                                              child: Icon(
+                                                Icons.delete_outline_outlined,
+                                                color: Colors.white,
+                                              ),
                                             ),
-                                          )),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.all(4),
+                                          alignment: Alignment.bottomRight,
+                                          child: CircleAvatar(
+                                            backgroundColor:
+                                                pdfConvertBackgroundColor,
+                                            child: Text(
+                                              (index + 1).toString(),
+                                              style: const TextStyle(
+                                                color: pdfConvertIconColor,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
@@ -115,30 +144,9 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                   )
                 : Expanded(
                     flex: 50,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            margin: const EdgeInsets.all(12),
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(emptyImage),
-                                fit: BoxFit.scaleDown,
-                              ),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: const Text(
-                                'Henüz bir resim seçmemişsin. Resimleri seç başlayalım!',
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                    child: SelectingEmptyWidget(
+                      title: locale!.choosedescription,
+                    )),
             Expanded(
               flex: 7,
               child: Row(
@@ -152,7 +160,7 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                       backgroundColor: addImageBackgroundColor,
                       icon: addIcon,
                       iconColor: addImageIconColor,
-                      title: 'Resim/Resimleri Seç',
+                      title: locale!.chooseimages,
                     ),
                   ),
                   images != null
@@ -171,7 +179,7 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                             backgroundColor: pdfConvertBackgroundColor,
                             icon: doneIcon,
                             iconColor: pdfConvertIconColor,
-                            title: "PDF'e Çevir",
+                            title: locale.convertpdf,
                           ),
                         )
                       : const SizedBox(),

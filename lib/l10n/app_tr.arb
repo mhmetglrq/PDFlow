@@ -1,0 +1,19 @@
+{
+    "language":"Türkçe",
+    "splashtitle":"Fotoğraflarınızı kolayca PDF dosyasına dönüştürün.",
+    "history":"Geçmiş",
+    "transactions":"PDF İşlemleri",
+    "choosedescription":"Henüz bir resim seçmemişsin. Resimleri seç başlayalım!",
+    "chooseimages":"Resim/Resimleri Seç",
+    "takepicturedescription":"Henüz bir resim çekmemişsin. Resim çek ve başlayalım!",
+    "takepicture":"Resim çek",
+    "takepictures":"Resim çek/Ekle",
+    "convertpdf":"PDF'e Çevir",
+    "homechooseimg":"Galeriden Resim/Resimleri Seç",
+    "hometakeimg":"Resim çek",
+    "start":"Başlayalım!",
+    "done":"Başarılı!",
+    "donedescription":"PDF dosyası hazır! Aşağıdaki butona tıklayarak PDF dosyasına ulaşabilirsin.",
+    "openpdf":"PDF'i açmak için dokun",
+    "homeEmpty":"Şu anlık boş gözüküyor. Hemen PDF'leri oluşturalım!"
+}

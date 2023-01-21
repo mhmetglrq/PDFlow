@@ -1,20 +1,24 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/common/utils/colors.dart';
-import 'package:flutter_img_to_pdf/common/utils/icons.dart';
-import 'package:flutter_img_to_pdf/common/utils/images.dart';
-import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
-import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import 'package:flutter_img_to_pdf/common/utils/colors.dart';
+import 'package:flutter_img_to_pdf/common/utils/icons.dart';
+import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
+import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../../../common/utils/utils.dart';
+import '../../../common/widgets/custom_appbar.dart';
 import '../../../common/widgets/custom_button.dart';
 import '../../home_page/controller/home_controller.dart';
 import '../controller/convert_controller.dart';
-import '../../../common/widgets/custom_appbar.dart';
+import '../widgets/selecting_empty_widget.dart';
 
 class TakePictureScreen extends ConsumerStatefulWidget {
   static const String routeName = '/select-take-picture-page';
@@ -62,9 +66,15 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: const PreferredSize(
-          preferredSize: preferredSize, child: CustomAppBar()),
+        preferredSize: preferredSize,
+        child: CustomAppBar(
+          home: false,
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -95,19 +105,43 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                                       ),
                                     ),
                                   ),
-                                  child: Container(
-                                    margin: const EdgeInsets.all(4),
-                                    alignment: Alignment.bottomRight,
-                                    child: CircleAvatar(
-                                      backgroundColor:
-                                          pdfConvertBackgroundColor,
-                                      child: Text(
-                                        (index + 1).toString(),
-                                        style: const TextStyle(
-                                          color: pdfConvertIconColor,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.all(4),
+                                        alignment: Alignment.topRight,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              images!.removeAt(index);
+                                            });
+                                          },
+                                          child: const CircleAvatar(
+                                            backgroundColor: addImageIconColor,
+                                            child: Icon(
+                                              Icons.delete_outline_outlined,
+                                              color: Colors.white,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
+                                      Container(
+                                        margin: const EdgeInsets.all(4),
+                                        alignment: Alignment.bottomRight,
+                                        child: CircleAvatar(
+                                          backgroundColor:
+                                              pdfConvertBackgroundColor,
+                                          child: Text(
+                                            (index + 1).toString(),
+                                            style: const TextStyle(
+                                              color: pdfConvertIconColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
@@ -120,28 +154,8 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                 )
               : Expanded(
                   flex: 50,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.all(12),
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(emptyImage),
-                              fit: BoxFit.scaleDown,
-                            ),
-                          ),
-                          child: Container(
-                            alignment: Alignment.center,
-                            child: const Text(
-                              'Henüz bir resim çekmemişsin. Resim çek ve başlayalım!',
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                  child: SelectingEmptyWidget(
+                    title: locale!.takepicturedescription,
                   ),
                 ),
           Expanded(
@@ -155,7 +169,7 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                           backgroundColor: addImageBackgroundColor,
                           icon: addIcon,
                           iconColor: addImageIconColor,
-                          title: 'Resim Çek/Ekle',
+                          title: locale!.takepictures,
                         )
                       : CustomButton(
                           onTap: () async {
@@ -167,7 +181,7 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                           backgroundColor: addImageBackgroundColor,
                           icon: addIcon,
                           iconColor: addImageIconColor,
-                          title: 'Resim Çek',
+                          title: locale!.takepicture,
                         ),
                 ),
                 images != null
@@ -185,7 +199,7 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                           backgroundColor: pdfConvertBackgroundColor,
                           icon: doneIcon,
                           iconColor: pdfConvertIconColor,
-                          title: "PDF'e Çevir",
+                          title: locale.convertpdf,
                         ),
                       )
                     : const SizedBox(),

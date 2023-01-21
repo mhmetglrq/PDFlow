@@ -1,0 +1,19 @@
+{
+    "language":"Deutsch",
+    "splashtitle":"Konvertieren Sie Ihre Fotos ganz einfach in eine PDF-Datei.",
+    "history":"Vergangenheit",
+    "transactions":"PDF-Transaktionen",
+    "choosedescription":"Sie haben noch kein Bild ausgewählt. Bilder auswählen und los geht's!",
+    "chooseimages":"Wählen Sie Bild/Bilder",
+    "takepicturedescription":"Sie haben noch kein Foto gemacht. Machen Sie ein Foto und los geht's!",
+    "takepicture":"machen Sie ein Foto",
+    "takepictures":"Bild aufnehmen/hinzufügen",
+    "convertpdf":"In PDF umwandeln",
+    "homechooseimg":"Wählen Sie Bild(er) aus der Galerie aus",
+    "hometakeimg":"machen Sie ein Foto",
+    "start":"Lasst uns beginnen!",
+    "done":"Erfolgreich!",
+    "donedescription":"PDF-Datei fertig! Sie können auf die PDF-Datei zugreifen, indem Sie auf die Schaltfläche unten klicken.",
+    "openpdf":"Tippen Sie hier, um das PDF zu öffnen",
+    "homeEmpty":"Es ist derzeit leer. Lassen Sie uns jetzt PDFs erstellen!"
+}

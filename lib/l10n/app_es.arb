@@ -1,0 +1,19 @@
+{
+    "language":"español",
+    "splashtitle":"Convierte fácilmente tus fotos a un archivo PDF.",
+    "history":"Pasado",
+    "transactions":"Transacciones en PDF",
+    "choosedescription":"Aún no has seleccionado una imagen. ¡Elige imágenes y comencemos!",
+    "chooseimages":"Seleccionar imagen/imágenes",
+    "takepicturedescription":"Aún no has tomado una foto. ¡Toma una foto y comencemos!",
+    "takepicture":"toma una foto",
+    "takepictures":"Tomar/Agregar foto",
+    "convertpdf":"Convertir a PDF",
+    "homechooseimg":"Seleccionar imagen(es) de la galería",
+    "hometakeimg":"Toma una foto",
+    "start":"¡Empecemos!",
+    "done":"¡Exitoso!",
+    "donedescription":"¡Archivo PDF listo! Puede acceder al archivo PDF haciendo clic en el botón de abajo.",
+    "openpdf":"Toque para abrir PDF",
+    "homeEmpty":"Actualmente está vacío. ¡Vamos a crear archivos PDF ahora!"
+}

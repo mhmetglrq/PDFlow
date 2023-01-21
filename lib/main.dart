@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_img_to_pdf/common/utils/colors.dart';
 import 'package:flutter_img_to_pdf/features/splash_page/splash_page.dart';
 import 'package:flutter_img_to_pdf/router.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'l10n/l10n.dart';
 
 void main() {
   runApp(
@@ -20,6 +24,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      supportedLocales: L10n.all,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => genarateRoute(settings),

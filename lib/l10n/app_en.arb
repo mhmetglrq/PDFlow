@@ -1,0 +1,19 @@
+{
+    "language":"English",
+    "splashtitle":"Easily convert your photos to PDF file.",
+    "history":"History",
+    "transactions":"Transformation actions",
+    "choosedescription":"You have not selected a picture yet. Choose pictures and let's get started!",    
+    "chooseimages":"Select Picture/Pictures",  
+    "takepicturedescription":"You haven't taken a picture yet. Take a picture and let's get started!",
+    "takepicture":"Take picture",
+    "takepictures":"Take/Add picture",
+    "convertpdf":"Convert to PDF",
+    "homechooseimg":"Select Image(s) from Gallery",
+    "hometakeimg":"Take picture",
+    "start":"Let's start!",
+    "done":"Successful!",
+    "donedescription":"PDF file ready! You can access the PDF file by clicking the button below.",
+    "openpdf":"Tap to open PDF",
+    "homeEmpty":"It is currently empty. Let's create PDFs now!"
+}
