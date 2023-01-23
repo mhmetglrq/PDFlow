@@ -13,13 +13,11 @@
     <a href="https://github.com/mhmetglrq/PDFlow"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a>
-    .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Report Bug</a>
     .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Request Feature</a>
   </p>
-  
+  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a>
 </p>
 
 ![Downloads](https://img.shields.io/github/downloads/mhmetglrq/PDFlow/total) ![Stargazers](https://img.shields.io/github/stars/mhmetglrq/PDFlow?style=social) ![Issues](https://img.shields.io/github/issues/mhmetglrq/PDFlow) 
