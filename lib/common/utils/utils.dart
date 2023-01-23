@@ -18,8 +18,8 @@ Future<File?> pickImage(BuildContext context, ImageSource source) async {
   return image;
 }
 
-Future<List<XFile?>?> pickImagesFromGallery(BuildContext context) async {
-  List<XFile?>? images;
+Future<List<XFile?>> pickImagesFromGallery(BuildContext context) async {
+  List<XFile?> images = [];
   try {
     final pickedImages = await ImagePicker().pickMultiImage();
     if (pickedImages.isNotEmpty) {
@@ -51,7 +51,7 @@ String getRandomString(int length) {
   );
 }
 
-Future<List<XFile?>?> pickImageFromCamera(BuildContext context) async {
+Future<List<XFile?>> pickImageFromCamera(BuildContext context) async {
   List<XFile?>? images = [];
 
   try {

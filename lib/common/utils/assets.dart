@@ -5,3 +5,4 @@ const dialogImage = 'assets/images/dialog_background.png';
 
 const findJson = 'assets/json/find.json';
 const doneJson = 'assets/json/done.json';
+const splashJson = 'assets/json/splash.json';

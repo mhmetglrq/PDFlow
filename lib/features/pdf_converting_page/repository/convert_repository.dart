@@ -13,11 +13,11 @@ import '../../../common/utils/permissions.dart';
 final convertRepositoryProvider = Provider((ref) => ConvertRepository());
 
 class ConvertRepository {
-  Future<String?> createPdfFromImage(List<XFile?>? files, context) async {
+  Future<String?> createPdfFromImage(List<XFile?> files, context) async {
     final pdf = pw.Document(
       pageMode: PdfPageMode.fullscreen,
     );
-    for (var i = 0; i < files!.length; i++) {
+    for (var i = 0; i < files.length; i++) {
       final image = pw.MemoryImage(File(files[i]!.path).readAsBytesSync());
       pdf.addPage(
         pw.Page(

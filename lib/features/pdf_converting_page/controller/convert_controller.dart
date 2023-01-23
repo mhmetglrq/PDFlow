@@ -21,7 +21,7 @@ class ConvertController {
   });
 
   Future<String?> createPDFFromImage(
-      List<XFile?>? files, BuildContext context) async {
+      List<XFile?> files, BuildContext context) async {
     return await convertRepository.createPdfFromImage(files, context);
   }
 }

@@ -28,7 +28,7 @@ class SelectImageScreen extends ConsumerStatefulWidget {
 
 class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
   XFile? image;
-  List<XFile?>? images;
+  List<XFile?> images = [];
   final TextEditingController _nameController = TextEditingController();
   String? filePath;
   @override
@@ -46,7 +46,7 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
     setState(() {});
   }
 
-  Future<String?> convertToPDF(List<XFile?>? images) async {
+  Future<String?> convertToPDF(List<XFile?> images) async {
     return await ref
         .read(convertControllerProvider)
         .createPDFFromImage(images, context);
@@ -67,77 +67,81 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            images != null
+            images.isNotEmpty
                 ? Expanded(
                     flex: 50,
                     child: ListView.builder(
+                      padding: EdgeInsets.zero,
                       physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      itemCount: images!.length,
+                      itemCount: images.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Expanded(
-                              child: AspectRatio(
-                                aspectRatio: 210 / 297,
-                                child: Container(
-                                  margin: const EdgeInsets.all(12),
-                                  color: Colors.white,
+                        return Container(
+                          margin: const EdgeInsets.all(25),
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: AspectRatio(
+                                  aspectRatio: 210 / 297,
                                   child: Container(
-                                    margin: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: FileImage(
-                                          File(images![index]!.path),
+                                    margin: const EdgeInsets.all(12),
+                                    color: Colors.white,
+                                    child: Container(
+                                      margin: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: FileImage(
+                                            File(images[index]!.path),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.all(4),
-                                          alignment: Alignment.topRight,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                images!.removeAt(index);
-                                              });
-                                            },
-                                            child: const CircleAvatar(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            margin: const EdgeInsets.all(4),
+                                            alignment: Alignment.topRight,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  images.removeAt(index);
+                                                });
+                                              },
+                                              child: const CircleAvatar(
+                                                backgroundColor:
+                                                    addImageIconColor,
+                                                child: Icon(
+                                                  Icons.delete_outline_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: const EdgeInsets.all(4),
+                                            alignment: Alignment.bottomRight,
+                                            child: CircleAvatar(
                                               backgroundColor:
-                                                  addImageIconColor,
-                                              child: Icon(
-                                                Icons.delete_outline_outlined,
-                                                color: Colors.white,
+                                                  pdfConvertBackgroundColor,
+                                              child: Text(
+                                                (index + 1).toString(),
+                                                style: const TextStyle(
+                                                  color: pdfConvertIconColor,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          margin: const EdgeInsets.all(4),
-                                          alignment: Alignment.bottomRight,
-                                          child: CircleAvatar(
-                                            backgroundColor:
-                                                pdfConvertBackgroundColor,
-                                            child: Text(
-                                              (index + 1).toString(),
-                                              style: const TextStyle(
-                                                color: pdfConvertIconColor,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     ),
@@ -146,7 +150,8 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                     flex: 50,
                     child: SelectingEmptyWidget(
                       title: locale!.choosedescription,
-                    )),
+                    ),
+                  ),
             Expanded(
               flex: 7,
               child: Row(
@@ -163,7 +168,7 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                       title: locale!.chooseimages,
                     ),
                   ),
-                  images != null
+                  images.isNotEmpty
                       ? Expanded(
                           child: CustomButton(
                             onTap: () async {

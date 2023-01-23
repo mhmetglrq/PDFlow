@@ -6,11 +6,11 @@ import 'package:permission_handler/permission_handler.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../common/utils/assets.dart';
 import '../../common/utils/colors.dart';
 import '../../common/utils/icons.dart';
 import '../../common/utils/permissions.dart';
 import '../home_page/home_page.dart';
-
 
 class SplashPage extends StatefulWidget {
   static const String routeName = '/select-splash-page';
@@ -65,7 +65,7 @@ class _SplashPageState extends State<SplashPage> {
                       ),
                       Container(
                         alignment: Alignment.center,
-                        child: Lottie.asset('assets/json/splash.json'),
+                        child: Lottie.asset(splashJson),
                       ),
                     ],
                   ),
