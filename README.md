@@ -57,9 +57,9 @@ To get a local copy up and running follow these simple example steps.
 ### Installation
 
 ● As a first step, clone the project by selecting the desired directory<br/>
-       » git clone https://github.com/mhmetglrq/PDFlow.git<br/>
+       <t/>» git clone https://github.com/mhmetglrq/PDFlow.git<br/>
 ● After opening the project, run the following command in your terminal<br/>
-     » flutter pub get<br/>
+       <t/>» flutter pub get<br/>
 ● Your project is ready to work 🙌<br/>
 
 ## Authors
