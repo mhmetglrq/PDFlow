@@ -7,7 +7,8 @@
   <h3 align="center">PDFlow</h3>
 
   <p align="center">
-    An Awesome PDF converter tool.
+    An Awesome PDF converter tool.<br/>
+  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a><br/><br/>
     <br/>
     <br/>
     <a href="https://github.com/mhmetglrq/PDFlow"><strong>Explore the docs »</strong></a>
@@ -16,7 +17,7 @@
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Report Bug</a>
     .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Request Feature</a><br/><br/>
-  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a><br/><br/>
+  
   </p>
   
 </p>
