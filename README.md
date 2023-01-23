@@ -33,10 +33,10 @@ Here is PDFlow!
 
 A converter with which you can easily convert any type of image to PDF files. Here are the reasons why you should check out this repository:
 
-● Developed with Dart/Flutter
-● Developed with Riverpod 2 in MVC architecture
-● A simple, understandable project on which you can add the features you want
-● A good example of using multiple spoken languages
+● Developed with Dart/Flutter<br/>
+● Developed with Riverpod 2 in MVC architecture<br/>
+● A simple, understandable project on which you can add the features you want<br/>
+● A good example of using multiple spoken languages<br/>
 
 I hope this repository meets a few things you need.
 
@@ -56,11 +56,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Installation
 
-● As a first step, clone the project by selecting the desired directory<br/>
-       <t/>» git clone https://github.com/mhmetglrq/PDFlow.git<br/>
-● After opening the project, run the following command in your terminal<br/>
-       <t/>» flutter pub get<br/>
-● Your project is ready to work 🙌<br/>
+● As a first step, clone the project by selecting the desired directory<br/><br/>
+       <t/>» git clone https://github.com/mhmetglrq/PDFlow.git<br/><br/>
+● After opening the project, run the following command in your terminal<br/><br/>
+       <t/>» flutter pub get<br/><br/>
+● Your project is ready to work 🙌<br/><br/>
 
 ## Authors
 
