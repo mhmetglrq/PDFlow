@@ -13,7 +13,7 @@
     <a href="https://github.com/mhmetglrq/PDFlow"><strong>Explore the docs »</strong></a>
     <br/>
     <br/>
-    <a href="https://github.com/mhmetglrq/PDFlow">View Demo</a>
+    <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow">View app on Play Store</a>
     .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Report Bug</a>
     .
