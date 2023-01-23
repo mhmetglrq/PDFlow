@@ -16,7 +16,7 @@
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Report Bug</a>
     .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Request Feature</a><br/><br/>
-  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a>
+  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow"><img src="/images/google-play-store.png" alt="Google Play Store" title="Google Play Store"></a><br/><br/>
   </p>
   
 </p>
