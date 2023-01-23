@@ -19,6 +19,7 @@
     .
     <a href="https://github.com/mhmetglrq/PDFlow/issues">Request Feature</a>
   </p>
+  <a href="https://play.google.com/store/apps/details?id=com.nevereverstudio.pdflow">(images/google-play-store.png)</a>
 </p>
 
 ![Downloads](https://img.shields.io/github/downloads/mhmetglrq/PDFlow/total) ![Stargazers](https://img.shields.io/github/stars/mhmetglrq/PDFlow?style=social) ![Issues](https://img.shields.io/github/issues/mhmetglrq/PDFlow) 
