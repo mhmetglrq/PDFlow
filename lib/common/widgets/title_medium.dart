@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class TitleMedium extends StatelessWidget {
   const TitleMedium({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
   final String title;
 
   @override

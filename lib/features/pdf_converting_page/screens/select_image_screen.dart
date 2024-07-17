@@ -175,8 +175,14 @@ class _SelectImageScreenState extends ConsumerState<SelectImageScreen> {
                               filePath = await convertToPDF(
                                 images,
                               );
-                              showDoneDialog(
-                                  context: context, filePath: filePath!);
+                              Future.delayed(
+                                Duration.zero,
+                                () => showDoneDialog(
+                                  context: context,
+                                  filePath: filePath!,
+                                ),
+                              );
+
                               ref
                                   .refresh(fileProvider)
                                   .whenData((value) => null);

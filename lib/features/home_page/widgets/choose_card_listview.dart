@@ -9,8 +9,8 @@ import '../../pdf_converting_page/screens/take_picture_screen.dart';
 
 class ChooseCardListView extends StatelessWidget {
   const ChooseCardListView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

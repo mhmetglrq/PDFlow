@@ -199,8 +199,12 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                             filePath = await convertToPDF(
                               images,
                             ).then((value) => value);
-                            showDoneDialog(
-                                context: context, filePath: filePath!);
+
+                            Future.delayed(
+                              Duration.zero,
+                              () => showDoneDialog(
+                                  context: context, filePath: filePath!),
+                            );
 
                             ref.refresh(fileProvider).whenData((value) => null);
                           },

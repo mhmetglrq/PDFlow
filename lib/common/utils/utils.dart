@@ -13,7 +13,10 @@ Future<File?> pickImage(BuildContext context, ImageSource source) async {
       image = File(pickedImage.path);
     }
   } catch (e) {
-    showSnackBar(context: context, content: e.toString());
+    Future.delayed(
+      Duration.zero,
+      () => showSnackBar(context: context, content: e.toString()),
+    );
   }
   return image;
 }
@@ -26,7 +29,10 @@ Future<List<XFile?>> pickImagesFromGallery(BuildContext context) async {
       images = pickedImages;
     }
   } catch (e) {
-    showSnackBar(context: context, content: e.toString());
+    Future.delayed(
+      Duration.zero,
+      () => showSnackBar(context: context, content: e.toString()),
+    );
   }
   return images;
 }
@@ -61,7 +67,11 @@ Future<List<XFile?>> pickImageFromCamera(BuildContext context) async {
       images.add(XFile(pickedImage.path));
     }
   } catch (e) {
-    showSnackBar(context: context, content: e.toString());
+    Future.delayed(
+      Duration.zero,
+      () => showSnackBar(context: context, content: e.toString()),
+    );
+    // showSnackBar(context: context, content: e.toString());
   }
   return images;
 }
@@ -76,7 +86,11 @@ Future<XFile?> addImagesFromCamera(BuildContext context) async {
       image = pickedImage;
     }
   } catch (e) {
-    showSnackBar(context: context, content: e.toString());
+    Future.delayed(
+      Duration.zero,
+      () => showSnackBar(context: context, content: e.toString()),
+    );
+    // showSnackBar(context: context, content: e.toString());
   }
   return image;
 }
