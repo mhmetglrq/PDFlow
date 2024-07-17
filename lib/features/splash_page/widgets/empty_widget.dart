@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common/utils/assets.dart';
+import '../../../config/utility/enum/image_enum.dart';
 
 class EmptyWidget extends StatelessWidget {
   const EmptyWidget({
@@ -15,9 +15,12 @@ class EmptyWidget extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        image:
-            DecorationImage(image: AssetImage(emptyImage), fit: BoxFit.cover),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+            image: AssetImage(
+              ImageEnum.emptyImage.toPng,
+            ),
+            fit: BoxFit.cover),
       ),
       child: Container(
         margin: const EdgeInsets.all(12),

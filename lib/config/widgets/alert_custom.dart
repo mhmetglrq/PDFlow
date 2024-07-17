@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_img_to_pdf/config/extensions/context_extension.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_filex/open_filex.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../utils/assets.dart';
-import '../utils/colors.dart';
-import '../utils/icons.dart';
-import '../utils/sizes.dart';
+import '../items/colors/app_colors.dart';
+import '../utility/enum/json_enum.dart';
 import 'custom_button.dart';
 
 class CustomAlert extends StatelessWidget {
@@ -19,7 +18,7 @@ class CustomAlert extends StatelessWidget {
     var locale = AppLocalizations.of(context);
 
     return AlertDialog(
-      backgroundColor: scaffoldColor,
+      backgroundColor: AppColors.scaffoldColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -44,7 +43,7 @@ class CustomAlert extends StatelessWidget {
                     .copyWith(fontSize: 20),
               ),
               Padding(
-                padding: paddingVertical10,
+                padding: context.paddingVerticalLow,
                 child: Text(
                   locale.donedescription,
                   textAlign: TextAlign.center,
@@ -52,13 +51,13 @@ class CustomAlert extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: Lottie.asset(doneJson),
+                child: Lottie.asset(JsonEnum.done.getPath),
               ),
               CustomButton(
-                backgroundColor: pdfConvertBackgroundColor,
-                iconColor: pdfConvertIconColor,
+                backgroundColor: AppColors.pdfConvertBackgroundColor,
+                iconColor: AppColors.pdfConvertIconColor,
                 title: locale.openpdf,
-                icon: openIcon,
+                icon: Icons.launch_rounded,
                 onTap: () {
                   OpenFilex.open(filePath);
                 },

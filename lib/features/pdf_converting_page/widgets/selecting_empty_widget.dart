@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../../common/utils/assets.dart';
+import '../../../config/utility/enum/image_enum.dart';
 
 class SelectingEmptyWidget extends StatelessWidget {
   const SelectingEmptyWidget({
@@ -17,9 +16,11 @@ class SelectingEmptyWidget extends StatelessWidget {
         Expanded(
           child: Container(
             margin: const EdgeInsets.all(12),
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage(emptyImage),
+                image: AssetImage(
+                  ImageEnum.emptyImage.toPng,
+                ),
                 fit: BoxFit.scaleDown,
               ),
             ),

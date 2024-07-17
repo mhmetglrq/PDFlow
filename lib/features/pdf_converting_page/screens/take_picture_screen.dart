@@ -6,29 +6,25 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:flutter_img_to_pdf/common/utils/colors.dart';
-import 'package:flutter_img_to_pdf/common/utils/icons.dart';
-import 'package:flutter_img_to_pdf/common/utils/permissions.dart';
-import 'package:flutter_img_to_pdf/common/utils/sizes.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common/utils/utils.dart';
-import '../../../common/widgets/custom_appbar.dart';
-import '../../../common/widgets/custom_button.dart';
+import '../../../config/utility/utils.dart';
+import '../../../config/widgets/custom_appbar.dart';
+import '../../../config/widgets/custom_button.dart';
+import '../../../config/items/colors/app_colors.dart';
 import '../../home_page/controller/home_controller.dart';
 import '../controller/convert_controller.dart';
 import '../widgets/selecting_empty_widget.dart';
 
-class TakePictureScreen extends ConsumerStatefulWidget {
+class TakePicture extends ConsumerStatefulWidget {
   static const String routeName = '/select-take-picture-page';
-  const TakePictureScreen({super.key});
+  const TakePicture({super.key});
 
   @override
-  ConsumerState<TakePictureScreen> createState() => _TakePictureScreenState();
+  ConsumerState<TakePicture> createState() => _TakePictureScreenState();
 }
 
-class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
+class _TakePictureScreenState extends ConsumerState<TakePicture> {
   List<XFile?> images = [];
   List<XFile?> cameraImages = [];
   final TextEditingController _nameController = TextEditingController();
@@ -70,7 +66,7 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
 
     return Scaffold(
       appBar: const PreferredSize(
-        preferredSize: preferredSize,
+        preferredSize: Size.fromHeight(50),
         child: CustomAppBar(
           home: false,
         ),
@@ -126,7 +122,7 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                                             },
                                             child: const CircleAvatar(
                                               backgroundColor:
-                                                  addImageIconColor,
+                                                  AppColors.addImageIconColor,
                                               child: Icon(
                                                 Icons.delete_outline_outlined,
                                                 color: Colors.white,
@@ -138,12 +134,13 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                                           margin: const EdgeInsets.all(4),
                                           alignment: Alignment.bottomRight,
                                           child: CircleAvatar(
-                                            backgroundColor:
-                                                pdfConvertBackgroundColor,
+                                            backgroundColor: AppColors
+                                                .pdfConvertBackgroundColor,
                                             child: Text(
                                               (index + 1).toString(),
                                               style: const TextStyle(
-                                                color: pdfConvertIconColor,
+                                                color: AppColors
+                                                    .pdfConvertIconColor,
                                               ),
                                             ),
                                           ),
@@ -174,9 +171,9 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                   child: images.isNotEmpty
                       ? CustomButton(
                           onTap: () => addImageFromCamera(),
-                          backgroundColor: addImageBackgroundColor,
-                          icon: addIcon,
-                          iconColor: addImageIconColor,
+                          backgroundColor: AppColors.addImageBackgroundColor,
+                          icon: Icons.add_rounded,
+                          iconColor: AppColors.addImageIconColor,
                           title: locale!.takepictures,
                         )
                       : CustomButton(
@@ -186,9 +183,9 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
                               selectImageFromCamera();
                             });
                           },
-                          backgroundColor: addImageBackgroundColor,
-                          icon: addIcon,
-                          iconColor: addImageIconColor,
+                          backgroundColor: AppColors.addImageBackgroundColor,
+                          icon: Icons.add_rounded,
+                          iconColor: AppColors.addImageIconColor,
                           title: locale!.takepicture,
                         ),
                 ),
@@ -208,9 +205,9 @@ class _TakePictureScreenState extends ConsumerState<TakePictureScreen> {
 
                             ref.refresh(fileProvider).whenData((value) => null);
                           },
-                          backgroundColor: pdfConvertBackgroundColor,
-                          icon: doneIcon,
-                          iconColor: pdfConvertIconColor,
+                          backgroundColor: AppColors.pdfConvertBackgroundColor,
+                          icon: Icons.done_rounded,
+                          iconColor: AppColors.pdfConvertIconColor,
                           title: locale.convertpdf,
                         ),
                       )

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_img_to_pdf/common/utils/utils.dart';
+import 'package:flutter_img_to_pdf/config/utility/utils.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -8,7 +8,6 @@ import 'package:riverpod/riverpod.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../common/utils/permissions.dart';
 
 final convertRepositoryProvider = Provider((ref) => ConvertRepository());
 

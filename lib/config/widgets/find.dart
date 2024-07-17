@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/common/utils/assets.dart';
 import 'package:lottie/lottie.dart';
+
+import '../utility/enum/json_enum.dart';
 
 class FindWidget extends StatelessWidget {
   const FindWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Lottie.asset(findJson);
+    return Lottie.asset(JsonEnum.find.getPath);
   }
 }
