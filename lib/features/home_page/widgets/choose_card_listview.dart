@@ -3,7 +3,7 @@ import 'package:flutter_img_to_pdf/features/pdf_converting_page/widgets/pick_ima
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../../common/utils/assets.dart';
+import '../../../config/utility/enum/image_enum.dart';
 import '../../pdf_converting_page/screens/select_image_screen.dart';
 import '../../pdf_converting_page/screens/take_picture_screen.dart';
 
@@ -23,15 +23,15 @@ class ChooseCardListView extends StatelessWidget {
         return index == 0
             ? PickImageCard(
                 onTap: () =>
-                    Navigator.pushNamed(context, SelectImageScreen.routeName),
+                    Navigator.pushNamed(context, SelectImage.routeName),
                 title: locale!.homechooseimg,
-                backgroundImg: chooseImage,
+                backgroundImg: ImageEnum.chooseImage.toPng,
               )
             : PickImageCard(
                 onTap: () =>
-                    Navigator.pushNamed(context, TakePictureScreen.routeName),
+                    Navigator.pushNamed(context, TakePicture.routeName),
                 title: locale!.hometakeimg,
-                backgroundImg: takePicImage,
+                backgroundImg: ImageEnum.takePicImage.toPng,
               );
       },
     );

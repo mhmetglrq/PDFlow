@@ -2,8 +2,9 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/common/widgets/alert_custom.dart';
+import 'package:flutter_img_to_pdf/config/widgets/alert_custom.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<File?> pickImage(BuildContext context, ImageSource source) async {
   File? image;
@@ -19,6 +20,19 @@ Future<File?> pickImage(BuildContext context, ImageSource source) async {
     );
   }
   return image;
+}
+
+Future<bool> requestPermission(Permission permission) async {
+  if (await permission.isGranted) {
+    return true;
+  } else {
+    var result = await permission.request();
+    if (result == PermissionStatus.granted) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
 
 Future<List<XFile?>> pickImagesFromGallery(BuildContext context) async {
