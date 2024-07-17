@@ -6,8 +6,8 @@ import '../../../common/utils/assets.dart';
 
 class EmptyWidget extends StatelessWidget {
   const EmptyWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
