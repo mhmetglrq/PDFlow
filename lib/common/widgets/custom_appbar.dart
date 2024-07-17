@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget {
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.home,
-  }) : super(key: key);
+  });
   final bool home;
 
   @override

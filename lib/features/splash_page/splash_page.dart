@@ -30,10 +30,8 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
     return Scaffold(
-      body: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
+      body: PopScope(
+        canPop: false,
         child: SafeArea(
           child: Padding(
             padding: paddingAll,

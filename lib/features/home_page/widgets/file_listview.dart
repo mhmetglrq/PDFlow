@@ -6,16 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:share_plus/share_plus.dart';
 
-
-
 import '../controller/home_controller.dart';
 
 class FileListView extends StatelessWidget {
   const FileListView({
-    Key? key,
+    super.key,
     required this.ref,
     required this.list,
-  }) : super(key: key);
+  });
   final WidgetRef ref;
   final List<FileSystemEntity> list;
 

@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/assets.dart';
 
 class SelectingEmptyWidget extends StatelessWidget {
   const SelectingEmptyWidget({
-    Key? key,
+    super.key,
     required this.title,
-  }) : super(key: key);
+  });
   final String title;
 
   @override
