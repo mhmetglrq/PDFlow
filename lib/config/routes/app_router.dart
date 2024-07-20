@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 
-import '../../features/home_page/home_page.dart';
-import '../../features/pdf_converting_page/screens/select_image_screen.dart';
-import '../../features/pdf_converting_page/screens/take_picture_screen.dart';
-import '../../features/splash_page/splash_page.dart';
-import '../widgets/error.dart';
+import '../../features/pdflow/presentation/pages/home/home.dart';
+import '../../features/pdflow/presentation/pages/pdf/select_image.dart';
+import '../../features/pdflow/presentation/pages/pdf/take_picture.dart';
+import '../../features/pdflow/presentation/pages/onboarding/onboarding.dart';
+import '../../features/pdflow/presentation/widgets/error.dart';
 import 'route_names.dart';
 
 class AppRouter {
