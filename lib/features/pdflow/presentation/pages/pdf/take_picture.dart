@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/config/extensions/context_extension.dart';
 import 'package:flutter_img_to_pdf/features/pdflow/domain/usecases/pdf/create_pdf.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -72,95 +71,103 @@ class _TakePictureState extends ConsumerState<TakePicture> {
           home: false,
         ),
       ),
-      body: Padding(
-        padding: context.paddingAllDefault,
-        child: Stack(
-          children: [
-            images.isNotEmpty
-                ? PageView.builder(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          images.isNotEmpty
+              ? Expanded(
+                  flex: 50,
+                  child: PageView.builder(
                     physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: images.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: AspectRatio(
-                              aspectRatio: 210 / 297,
-                              child: Container(
-                                margin: const EdgeInsets.all(12),
-                                color: Colors.white,
+                      return Container(
+                        margin: const EdgeInsets.all(25),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: AspectRatio(
+                                aspectRatio: 210 / 297,
                                 child: Container(
-                                  margin: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: FileImage(
-                                        File(images[index]!.path),
+                                  margin: const EdgeInsets.all(12),
+                                  color: Colors.white,
+                                  child: Container(
+                                    margin: const EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: FileImage(
+                                          File(images[index]!.path),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.all(4),
-                                        alignment: Alignment.topRight,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(
-                                              () {
-                                                images.removeAt(index);
-                                              },
-                                            );
-                                          },
-                                          child: const CircleAvatar(
-                                            backgroundColor:
-                                                AppColors.addImageIconColor,
-                                            child: Icon(
-                                              Icons.delete_outline_outlined,
-                                              color: Colors.white,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          margin: const EdgeInsets.all(4),
+                                          alignment: Alignment.topRight,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(
+                                                () {
+                                                  images.removeAt(index);
+                                                },
+                                              );
+                                            },
+                                            child: const CircleAvatar(
+                                              backgroundColor:
+                                                  AppColors.addImageIconColor,
+                                              child: Icon(
+                                                Icons.delete_outline_outlined,
+                                                color: Colors.white,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Container(
-                                        margin: const EdgeInsets.all(4),
-                                        alignment: Alignment.bottomRight,
-                                        child: CircleAvatar(
-                                          backgroundColor: AppColors
-                                              .pdfConvertBackgroundColor,
-                                          child: Text(
-                                            (index + 1).toString(),
-                                            style: const TextStyle(
-                                              color:
-                                                  AppColors.pdfConvertIconColor,
+                                        Container(
+                                          margin: const EdgeInsets.all(4),
+                                          alignment: Alignment.bottomRight,
+                                          child: CircleAvatar(
+                                            backgroundColor: AppColors
+                                                .pdfConvertBackgroundColor,
+                                            child: Text(
+                                              (index + 1).toString(),
+                                              style: const TextStyle(
+                                                color: AppColors
+                                                    .pdfConvertIconColor,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       );
                     },
-                  )
-                : SelectingEmptyWidget(
+                  ),
+                )
+              : Expanded(
+                  flex: 50,
+                  child: SelectingEmptyWidget(
                     title: locale!.takepicturedescription,
                   ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  images.isNotEmpty
+                ),
+          Expanded(
+            flex: 7,
+            child: Row(
+              children: [
+                Expanded(
+                  child: images.isNotEmpty
                       ? CustomButton(
                           onTap: () => addImageFromCamera(),
                           backgroundColor: AppColors.addImageBackgroundColor,
@@ -180,8 +187,10 @@ class _TakePictureState extends ConsumerState<TakePicture> {
                           iconColor: AppColors.addImageIconColor,
                           title: locale!.takepicture,
                         ),
-                  images.isNotEmpty
-                      ? CustomButton(
+                ),
+                images.isNotEmpty
+                    ? Expanded(
+                        child: CustomButton(
                           onTap: () async {
                             filePath = await convertToPDF(images);
                             Future.delayed(
@@ -196,13 +205,16 @@ class _TakePictureState extends ConsumerState<TakePicture> {
                           icon: Icons.done_rounded,
                           iconColor: AppColors.pdfConvertIconColor,
                           title: locale.convertpdf,
-                        )
-                      : const SizedBox(),
-                ],
-              ),
+                        ),
+                      )
+                    : const SizedBox(),
+              ],
             ),
-          ],
-        ),
+          ),
+          const Spacer(
+            flex: 1,
+          )
+        ],
       ),
     );
   }

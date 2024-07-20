@@ -17,8 +17,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(8),
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
@@ -30,18 +29,28 @@ class CustomButton extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircleAvatar(
-                backgroundColor: backgroundColor,
-                child: Icon(
-                  icon,
-                  color: iconColor,
+              const Spacer(
+                flex: 4,
+              ),
+              Expanded(
+                flex: 15,
+                child: CircleAvatar(
+                  backgroundColor: backgroundColor,
+                  child: Icon(
+                    icon,
+                    color: iconColor,
+                  ),
                 ),
               ),
-              Container(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: iconColor,
+              Expanded(
+                flex: 70,
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: iconColor,
+                    ),
                   ),
                 ),
               ),
