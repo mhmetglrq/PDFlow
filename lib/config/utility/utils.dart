@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_img_to_pdf/config/widgets/alert_custom.dart';
+import 'package:flutter_img_to_pdf/features/pdflow/presentation/widgets/alert_custom.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 

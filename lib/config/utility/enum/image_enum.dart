@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 enum ImageEnum {
   emptyImage('empty_image'),
   chooseImage('choose_image'),
-  takePicImage('take_pic_image'),
+  takePicImage('take_picture_image'),
   dialogBackground('dialog_background'),
   ;
 
