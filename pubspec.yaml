@@ -54,3 +54,8 @@ flutter:
   assets:
     - assets/images/
     - assets/json/
+
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/Urbanist-Regular.ttf

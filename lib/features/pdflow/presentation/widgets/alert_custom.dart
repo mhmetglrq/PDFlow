@@ -20,7 +20,7 @@ class CustomAlert extends StatelessWidget {
     var locale = AppLocalizations.of(context);
 
     return AlertDialog(
-      backgroundColor: AppColors.scaffoldColor,
+      backgroundColor: AppColors.scaffoldBgColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
