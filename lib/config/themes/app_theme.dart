@@ -1,52 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_img_to_pdf/config/extensions/context_extension.dart';
 
 import '../items/colors/app_colors.dart';
 
 class AppTheme {
   const AppTheme._();
-  static ThemeData lightTheme = ThemeData(
-    appBarTheme: AppBarTheme(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(16),
+  static ThemeData lightTheme(BuildContext context) {
+    return ThemeData(
+      appBarTheme: const AppBarTheme(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(16),
+          ),
         ),
-      ),
-      backgroundColor: const Color(0xFFFFFFFF),
-      centerTitle: true,
-      titleTextStyle: GoogleFonts.quicksand(
-        textStyle: const TextStyle(
-          color: Color(0xFF373A42),
+        centerTitle: true,
+        titleTextStyle: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 22,
         ),
       ),
-    ),
-    scaffoldBackgroundColor: AppColors.scaffoldColor,
-    textTheme: TextTheme(
-      titleMedium: GoogleFonts.quicksand(
-        textStyle: const TextStyle(
-          color: Color(0xFF373A42),
-          fontWeight: FontWeight.bold,
-          fontSize: 18,
-        ),
+      fontFamily: "Urbanist",
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.scaffoldBgColor,
+        brightness: Brightness.dark,
       ),
-      bodyMedium: GoogleFonts.quicksand(
-        textStyle: const TextStyle(
-          color: Color(0xFF373A42),
+      scaffoldBackgroundColor: AppColors.scaffoldBgColor,
+      textTheme: TextTheme(
+        displayLarge: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.05),
+        ),
+        displayMedium: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.045),
+        ),
+        displaySmall: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.04),
+        ),
+        headlineLarge: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.05),
+        ),
+        headlineSmall: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.035),
+        ),
+        headlineMedium: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.03),
+        ),
+        titleLarge: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.05),
+        ),
+        titleMedium: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.04),
+        ),
+        titleSmall: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.dynamicHeight(0.035),
+        ),
+        bodyLarge: TextStyle(
           fontWeight: FontWeight.w500,
-          fontSize: 14,
+          fontSize: context.dynamicHeight(0.04),
+        ),
+        bodyMedium: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: context.dynamicHeight(0.03),
+        ),
+        bodySmall: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: context.dynamicHeight(0.025),
+        ),
+        labelLarge: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: context.dynamicHeight(0.04),
+        ),
+        labelMedium: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: context.dynamicHeight(0.03),
+        ),
+        labelSmall: TextStyle(
+          fontWeight: FontWeight.w500,
+          fontSize: context.dynamicHeight(0.025),
         ),
       ),
-      headlineMedium: GoogleFonts.quicksand(
-        textStyle: const TextStyle(
-          color: Color(0xFF373A42),
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
-    ),
-  );
+    );
+  }
 
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,

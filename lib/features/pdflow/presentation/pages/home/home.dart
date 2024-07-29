@@ -3,8 +3,7 @@ import 'package:flutter_img_to_pdf/config/extensions/context_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../widgets/custom_appbar.dart';
-import '../../widgets/title_medium.dart';
+import '../../../../../config/items/colors/app_colors.dart';
 
 class Home extends ConsumerStatefulWidget {
   static const String routeName = '/home-page';
@@ -24,67 +23,23 @@ class _HomePageState extends ConsumerState<Home> {
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
     return Scaffold(
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(50),
-        child: CustomAppBar(
-          home: true,
-        ),
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: context.paddingAllDefault,
+      body: Container(
+        width: double.infinity,
+        color: AppColors.scaffoldBgColor,
+        child: SafeArea(
           child: Column(
             children: [
-              TitleMedium(
-                title: locale?.transactions ?? "",
-              ),
-              SizedBox(
-                height: context.height * 0.3,
-                child: PageView.builder(
-                    padEnds: false,
-                    controller: PageController(viewportFraction: 0.5),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: context.paddingRightLow,
-                            child: Container(
-                              width: context.height * 0.23,
-                              height: context.height * 0.23,
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    }),
-              ),
-
-              // TitleMedium(
-              //   title: locale!.history,
-              // ),
-              // Expanded(
-              //   child: ref.watch(getFilesProvider).when(
-              //         data: (data) {
-              //           var list = data.reversed.toList();
-              //           return data.isNotEmpty
-              //               ? FileListView(
-              //                   list: list,
-              //                   ref: ref,
-              //                 )
-              //               : const EmptyWidget();
-              //         },
-              //         error: ((error, stackTrace) => Text(error.toString())),
-              //         loading: () => const FindWidget(),
-              //       ),
-
-              // ),
-
-              // const Expanded(
-              //   child: ChooseCardListView(),
-              // ),
+              Container(
+                padding: context.paddingAllDefault,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Ready To Learn?",
+                  style: context.textTheme.labelMedium?.copyWith(
+                    color: AppColors.whiteColor,
+                    fontSize: context.dynamicHeight(0.038),
+                  ),
+                ),
+              )
             ],
           ),
         ),

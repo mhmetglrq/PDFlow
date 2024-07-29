@@ -12,7 +12,6 @@ import '../../../../../config/utility/enum/json_enum.dart';
 import '../../../../../config/utility/utils.dart';
 
 class Onboarding extends StatefulWidget {
-
   const Onboarding({super.key});
 
   @override
@@ -46,16 +45,14 @@ class _OnboardingState extends State<Onboarding> {
                             padding: context.paddingVerticalLow,
                             child: Text(
                               'PDFLOW',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium!
-                                  .copyWith(
-                                    fontSize: 24,
-                                  ),
+                              style: Theme.of(context).textTheme.titleMedium,
+                              textAlign: TextAlign.center,
                             ),
                           ),
                           Text(
                             locale!.splashtitle,
+                            style: context.textTheme.labelMedium,
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
