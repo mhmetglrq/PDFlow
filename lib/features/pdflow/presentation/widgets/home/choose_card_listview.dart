@@ -14,7 +14,7 @@ class ChooseCardListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var locale = AppLocalizations.of(context);
-    return ListView.builder(
+    return PageView.builder(
       physics: const BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
       itemCount: 2,
